@@ -1,7 +1,10 @@
-var pokemonsEl = document.querySelector('.select-screen')
-    .querySelectorAll('.character')
-    console.log(pokemonEl)
-    var i= 0;
+var gameState = {
+    pokemon: ''
+}
+console.log(gameState)
+var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character')
+console.log(pokemonsEl)
+var i = 0;
 
     while (i < pokemonsEl.length) {
         pokemonsEl[i].onclick = function() {
