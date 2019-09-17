@@ -13,6 +13,7 @@ var i = 0;
             gameState.userPokemon = pokeName
 
             cpuPick()
+            battleScreenEl.classList.toggle('active')
             console.log(gameState)
         }
         i++
@@ -22,7 +23,10 @@ var i = 0;
         return Math.floor(Math.random() * (max - min)) +min;
     }
 
-    
+    function cpuPick() {
+        gameState.rivalPokemon = pokemonsEl[randomNumber(0, 3)].dataset.pokemon
+    }
+
 
 
 
