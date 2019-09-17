@@ -1,5 +1,6 @@
 var gameState = {
-    pokemon: ''
+    userPokemon: '',
+    rivalPokemon: ''
 }
 console.log(gameState)
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character')
@@ -9,10 +10,19 @@ var i = 0;
     while (i < pokemonsEl.length) {
         pokemonsEl[i].onclick = function() {
             var pokeName = this.dataset.pokemon
-            console.log('I pressed this pokemon ' + pokemonName)
+            gameState.userPokemon = pokeName
+
+            cpuPick()
+            console.log(gameState)
         }
         i++
     }
+
+    function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min)) +min;
+    }
+
+    
 
 
 
