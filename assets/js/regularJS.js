@@ -1,11 +1,12 @@
-var pokemons = [
+// This is the Database
+var pokemonDB = [
     {
       name: 'charmander',
       type: 'fire',
       hp: 39,
       attack: 52,
       defense: 39,
-      level: 1
+      level: 1,
       img: 'http://www.smogon.com/dex/media/sprites/xy/charmander.gif'
     },
     {
@@ -14,7 +15,7 @@ var pokemons = [
       hp: 45,
       attack: 49,
       defense: 49,
-      level: 1
+      level: 1,
       img: 'http://www.smogon.com/dex/media/sprites/xy/bulbasaur.gif'
     },
     {
@@ -23,36 +24,81 @@ var pokemons = [
         hp: 44,
         attack: 48,
         defense: 65,
-        level: 1
+        level: 1,
         img: 'http://www.smogon.com/dex/media/sprites/xy/squirtle.gif'
-      },
+      }
     
   ]
 
-
+//State
 var gameState = {
     userPokemon: '',
     rivalPokemon: ''
 }
 console.log(gameState)
+
+//elements
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character')
 console.log(pokemonsEl)
 var battleScreenEl = document.getElementById('battle-screen')
 var i = 0;
 
+//this is the initial loop
     while (i < pokemonsEl.length) {
-        pokemonsEl[i].onclick = function() {
-            var pokeName = this.dataset.pokemon
-            gameState.userPokemon = pokeName
+      //add function to all characters on screen select
 
+        pokemonsEl[i].onclick = function() {
+          //current selected pokemons name
+            var pokemonName = this.dataset.pokemon
+
+            //elements for images on battle screen
+            var player1Img = document.querySelector('.player1').getElementById('img')
+            var player2Img = document.querySelector('.player2').getElementById('img')
+
+            //we save the current pokemon
+            gameState.userPokemon = pokemonName
+
+            //cpu picks a pokemon
             cpuPick()
+            //change screen to battle scene
             battleScreenEl.classList.toggle('active')
-            console.log(gameState)
+          
+            //select data from current user pokemon
+            var currentPokemon = pokemonDB.filter(function(pokemon){
+              return pokemon.name == gameState.userPokemon
+            })
+            //select data from current cpu pokemon
+            var currentRivalPokemon = pokemonDB.filter(function(pokemon){
+              return pokemon.name == gameState.RivalPokemon
+            })
+
+            player1Img[0].src = currentPokemon[0].img
+            player2Img[0].src = currentRivalPokemon[0].img
+
+
+            //user choose attack
+
+
+            //cpu health goes does
+
+            //cpu attack
+
+            //user health goes down
+
+            //rock > scissors
+
+            //paper > rock
+
+            //scissors > paper
+
+            //depending on pokemone type and defense is how hard the attack is going to be and how much health it will take out
+
+            //then whoever get to health <= 0 loses
         }
         i++
     }
 
-    function randomNumber(min, max) {
+    var randomNumber = function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min)) +min;
     }
 
