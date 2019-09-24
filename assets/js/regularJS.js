@@ -40,7 +40,7 @@ console.log(gameState)
 //elements
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character')
 console.log(pokemonsEl)
-var battleScreenEl = document.getElementById('battle-screen')
+var battleScreenEl = document.getElementById("battle-screen")
 var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack')
 console.log(attackBtnsEl)
 
@@ -125,10 +125,21 @@ var i = 0;
     return ((0.20 * Math.sqrt(user[0].level)) * user[0].defense) * user[0].hp
   }
 
+  var attackMove = function(attack, level, stack, critical, enemy) {
+    console.log('enemy.health before: ' + enemy.health)
+    var attackAmount = ((attack * level) * (stack + critical))
+    enemy.health = enemy.health - attackAmount
+
+    console.log('enemy.health after:' + attackAmount)
+  }
+
   var play = function(userAttack, cpuAttack){
+    var currentPokemon = gameState.currentPokemon[0]
+    var currentRivalPokemon = gameState.currentPokemon[0]
     switch(userAttack) {
       case 'rock':
         if(cpuAttack == 'paper'){
+          attackMove(currentPokemon.attack, currentPokemon.level, .8, .5, currentRivalPokemon)
           console.log('Its ineffective!')
         }
         if(cpuAttack == 'scissors'){
