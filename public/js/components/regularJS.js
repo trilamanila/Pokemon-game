@@ -44,9 +44,8 @@ console.log(gameState);
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character');
 console.log(pokemonsEl);
 var battleScreenEl = document.getElementById('battle-screen');
-//var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack')
-//console.log(attackBtnsEl)
-
+var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack');
+console.log(attackBtnsEl);
 
 //this is the initial loop
 var i = 0;
@@ -112,7 +111,7 @@ while (a < attackBtnsEl.length) {
   attackBtnsEl[a].onclick = function () {
     var attackName = this.dataset.attack;
     gameState.currentUserAttack = attackName;
-
+    console.log(gameState.currentUserAttack);
     play(attackName, cpuAttack());
   };
   a++;
@@ -124,29 +123,29 @@ var cpuAttack = function cpuAttack() {
   return attacks[randomNumber(0, 3)];
 };
 
-var calculateInitialHealth = function calculateInitialHealth(user) {
-  return 0.20 * Math.sqrt(user[0].level) * user[0].defense * user[0].hp;
-};
+// var calculateInitialHealth = function(user){
+//   return ((0.20 * Math.sqrt(user[0].level)) * user[0].defense) * user[0].hp
+// }
 
-var attackMove = function attackMove(attack, level, stack, critical, enemy) {
-  console.log('enemy.health before: ' + enemy.health);
-  var attackAmount = attack * level * (stack + critical);
-  enemy.health = enemy.health - attackAmount;
+// var attackMove = function(attack, level, stack, critical, enemy) {
+//   console.log('enemy.health before: ' + enemy.health)
+//   var attackAmount = ((attack * level) * (stack + critical))
+//   enemy.health = enemy.health - attackAmount
 
-  console.log('enemy.health after:' + attackAmount);
-};
+//   console.log('enemy.health after:' + attackAmount)
+// }
 
 var play = function play(userAttack, cpuAttack) {
-  var currentPokemon = gameState.currentPokemon[0];
-  var currentRivalPokemon = gameState.currentPokemon[0];
+  // var currentPokemon = gameState.currentPokemon[0]
+  // var currentRivalPokemon = gameState.currentPokemon[0]
   switch (userAttack) {
     case 'rock':
       if (cpuAttack == 'paper') {
-        attackMove(currentPokemon.attack, currentPokemon.level, .8, .5, currentRivalPokemon);
-        console.log('Its ineffective!');
+        //attackMove(currentPokemon.attack, currentPokemon.level, .8, .5, currentRivalPokemon)
+        console.log('Paper killed rock');
       }
       if (cpuAttack == 'scissors') {
-        console.log('Its super effective!');
+        console.log('rock killed scissors!');
       }
       if (cpuAttack == 'rock') {
         console.log('Its a draw');

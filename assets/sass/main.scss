@@ -121,10 +121,14 @@ display: flex;
   text-transform: capitalize;
   font-size: 200px;
   text-align: center;
+  position: relative;
+  top: -100px;
 }
 #battle-screen .battle-btns{
   text-align: center;
   vertical-align: top;
+  position: relative;
+  top: -100px;
 }
 
 
