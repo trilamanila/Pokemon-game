@@ -6,6 +6,7 @@ webpackJsonp([0],{
 "use strict";
 
 
+// This is the Database
 var pokemonDB = [{
   name: 'charmander',
   type: 'fire',
@@ -32,27 +33,134 @@ var pokemonDB = [{
   img: 'http://www.smogon.com/dex/media/sprites/xy/squirtle.gif'
 }];
 
+//State
 var gameState = {
   userPokemon: '',
   rivalPokemon: ''
 };
 console.log(gameState);
+
+//elements
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character');
 console.log(pokemonsEl);
 var battleScreenEl = document.getElementById('battle-screen');
-var i = 0;
+//var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack')
+//console.log(attackBtnsEl)
 
+
+//this is the initial loop
+var i = 0;
 while (i < pokemonsEl.length) {
+  //add function to all characters on screen select
+
   pokemonsEl[i].onclick = function () {
+    //current selected pokemons name
     var pokemonName = this.dataset.pokemon;
+
+    //elements for images on battle screen
+    var player1Img = document.querySelector('.player1').getElementsByTagName('img');
+    var player2Img = document.querySelector('.player2').getElementsByTagName('img');
+
+    //we save the current pokemon
     gameState.userPokemon = pokemonName;
 
+    //cpu pick
     cpuPick();
+
+    //change screen to battle scene
     battleScreenEl.classList.toggle('active');
-    console.log(gameState);
+
+    //select data from current user pokemon
+    var currentPokemon = pokemonDB.filter(function (pokemon) {
+      return pokemon.name == gameState.userPokemon;
+    });
+
+    //select data from current cpu pokemon
+    var currentRivalPokemon = pokemonDB.filter(function (pokemon) {
+      return pokemon.name == gameState.rivalPokemon;
+    });
+
+    player1Img[0].src = currentPokemon[0].img;
+    player2Img[0].src = currentRivalPokemon[0].img;
+
+    //gameState.currentPokemon.health = calculateInitialHealth(gameState.currentPokemon)
+    console.log(currentPokemon);
+
+    //user choose attack
+
+
+    //cpu health goes does
+
+    //cpu attack
+
+    //user health goes down
+
+    //rock > scissors
+
+    //paper > rock
+
+    //scissors > paper
+
+    //depending on pokemone type and defense is how hard the attack is going to be and how much health it will take out
+
+    //then whoever get to health <= 0 loses
   };
   i++;
 }
+var a = 0;
+while (a < attackBtnsEl.length) {
+  attackBtnsEl[a].onclick = function () {
+    var attackName = this.dataset.attack;
+    gameState.currentUserAttack = attackName;
+
+    play(attackName, cpuAttack());
+  };
+  a++;
+}
+
+var cpuAttack = function cpuAttack() {
+  var attacks = ['rock', 'paper', 'scissors'];
+
+  return attacks[randomNumber(0, 3)];
+};
+
+var calculateInitialHealth = function calculateInitialHealth(user) {
+  return 0.20 * Math.sqrt(user[0].level) * user[0].defense * user[0].hp;
+};
+
+var attackMove = function attackMove(attack, level, stack, critical, enemy) {
+  console.log('enemy.health before: ' + enemy.health);
+  var attackAmount = attack * level * (stack + critical);
+  enemy.health = enemy.health - attackAmount;
+
+  console.log('enemy.health after:' + attackAmount);
+};
+
+var play = function play(userAttack, cpuAttack) {
+  var currentPokemon = gameState.currentPokemon[0];
+  var currentRivalPokemon = gameState.currentPokemon[0];
+  switch (userAttack) {
+    case 'rock':
+      if (cpuAttack == 'paper') {
+        attackMove(currentPokemon.attack, currentPokemon.level, .8, .5, currentRivalPokemon);
+        console.log('Its ineffective!');
+      }
+      if (cpuAttack == 'scissors') {
+        console.log('Its super effective!');
+      }
+      if (cpuAttack == 'rock') {
+        console.log('Its a draw');
+      }
+      console.log(userAttack);
+      break;
+    case 'paper':
+      console.log(userAttack);
+      break;
+    case 'scissors':
+      console.log(userAttack);
+      break;
+  }
+};
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;

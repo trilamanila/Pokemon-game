@@ -1,4 +1,4 @@
-// THis is the Database
+// This is the Database
 var pokemonDB = [
   {
     name: 'charmander',
@@ -40,9 +40,9 @@ console.log(gameState)
 //elements
 var pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character')
 console.log(pokemonsEl)
-var battleScreenEl = document.getElementById("battle-screen")
-var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack')
-console.log(attackBtnsEl)
+var battleScreenEl = document.getElementById('battle-screen')
+//var attackBtnsEl = document.getElementById('battle-screen').querySelectorAll('.attack')
+//console.log(attackBtnsEl)
 
 
 //this is the initial loop
@@ -54,15 +54,16 @@ var i = 0;
         //current selected pokemons name
           var pokemonName = this.dataset.pokemon
 
-          //elements for images on battle screen
-          var player1Img = document.querySelector('.player1').getElementById('img')
-          var player2Img = document.querySelector('.player2').getElementById('img')
+        //elements for images on battle screen
+        var player1Img = document.querySelector('.player1').getElementsByTagName('img')
+        var player2Img = document.querySelector('.player2').getElementsByTagName('img')  
 
           //we save the current pokemon
           gameState.userPokemon = pokemonName
 
-          //cpu picks a pokemon
+          //cpu pick
           cpuPick()
+
           //change screen to battle scene
           battleScreenEl.classList.toggle('active')
         
@@ -71,17 +72,19 @@ var i = 0;
             return pokemon.name == gameState.userPokemon
           })
 
-          player1Img[0].src = currentPokemon[0].img
+          
           //select data from current cpu pokemon
           var currentRivalPokemon = pokemonDB.filter(function(pokemon){
-            return pokemon.name == gameState.RivalPokemon
+            return pokemon.name == gameState.rivalPokemon
           })
 
-          
+          player1Img[0].src = currentPokemon[0].img
           player2Img[0].src = currentRivalPokemon[0].img
 
-          gameState.currentPokemon.health = calculateInitialHealth(gameState.currentPokemon)
-          console.log(gameState)
+          //gameState.currentPokemon.health = calculateInitialHealth(gameState.currentPokemon)
+          console.log(currentPokemon)
+
+          
 
           //user choose attack
 
@@ -159,8 +162,8 @@ var i = 0;
     }
   }
 
-  var randomNumber = function randomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min)) +min;
+  function randomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
   }
 
   function cpuPick() {
